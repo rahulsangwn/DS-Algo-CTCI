@@ -48,7 +48,7 @@ int main() {
     int num_elmt, *arr, i;
     struct Max_Min result;
 
-    printf ("Enter the size of array: \n");
+    printf ("Enter size of the array: \n");
     scanf ("%d", &num_elmt);
 
     arr = (int *) malloc (sizeof(int) * num_elmt);
