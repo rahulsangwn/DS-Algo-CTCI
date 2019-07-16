@@ -12,13 +12,13 @@ int main () {
 }
 
 int mergesort (int *arr, int i, int j) {
-    int m, p, q;
+    int m;
     if (i == j)
         return i;
     
     m = (i + j) / 2;
-    p = mergesort (arr, i, m);
-    q = mergesort (arr, m+1, j);
+    mergesort (arr, i, m);
+    mergesort (arr, m+1, j);
 
     merge (arr, i, m+1, j);
     
