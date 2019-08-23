@@ -6,21 +6,25 @@ void find (int number);
 void delete (int number);
 void print ();
 
+
 struct Node {
     int data;
     struct Node *link;
 } head, *last_node;
+
+int count (struct Node *);
 
 int main () {
     int number, choice = 0;
     
     while (choice != 5) {
         printf ("\nChoose the action: ");
-        printf ("\n 1. Insert");
-        printf ("\n 2. Find");
-        printf ("\n 3. Delete");
-        printf ("\n 4. Print List");
-        printf ("\n 5. Exit!\n");
+        printf ("\n 1. Insert ");
+        printf ("\n 2. Find ");
+        printf ("\n 3. Delete ");
+        printf ("\n 4. Print List ");
+        printf ("\n 5. Exit! ");
+        printf ("\n 6. count \n");
 
         scanf("%d", &choice);
         
@@ -41,8 +45,11 @@ int main () {
             delete (number);
             break;
             
-            case 4 : printf ("\nHere is/are linked list element/s ");
+            case 4 : printf ("\nHere is/are linked list element/s: ");
             print();
+            break;
+
+            case 6 : printf ("\nTotal no of nodes in the linked list: %d ", count(&head));
             break;
         }
     }
@@ -72,6 +79,15 @@ void print () {
     } while (start != NULL);
     printf ("\n");
     exit(0);
+}
+
+int count (struct Node *start) {
+    if (start->link == NULL)
+        return 1;
+    else {
+        return (count(start->link) + 1);
+    }
+    
 }
 
 void find (int number) {
