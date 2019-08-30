@@ -1,21 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void insert (int number);
-void find (int number);
-void delete (int number);
-void print ();
-
-
 struct Node {
     int data;
     struct Node *link;
-} head, *last_node;
+};
 
 int count (struct Node *);
+void reverse (struct Node **);
+int insert_front (struct Node **, int number);
+void display (struct Node *);
+int find (struct Node *, int number);
+void delete (struct Node **, int number);
+
+
 
 int main () {
     int number, choice = 0;
+    struct Node *head = NULL;
     
     while (choice != 5) {
         printf ("\nChoose the action: ");
@@ -24,7 +26,8 @@ int main () {
         printf ("\n 3. Delete ");
         printf ("\n 4. Print List ");
         printf ("\n 5. Exit! ");
-        printf ("\n 6. count \n");
+        printf ("\n 6. count ");
+        printf ("\n 7. Reverse \n");
 
         scanf("%d", &choice);
         
@@ -32,90 +35,104 @@ int main () {
 
             case 1 : printf ("\nEnter number to be inserted: ");
             scanf ("%d", &number);
-            insert (number);
+            insert_front (&head, number);
             break;
 
             case 2 : printf ("\nEnter number to be searched for: ");
             scanf ("%d", & number);
-            find (number);
+            find (head, number);
             break;
 
             case 3 : printf ("\nEnter number to be deleted: ");
             scanf ("%d", &number);
-            delete (number);
+            delete (&head, number);
             break;
             
             case 4 : printf ("\nHere is/are linked list element/s: ");
-            print();
+            display(head);
             break;
 
-            case 6 : printf ("\nTotal no of nodes in the linked list: %d ", count(&head));
+            case 6 : printf ("\nTotal no of nodes in the linked list: %d ", count(head));
+            break;
+
+            case 7 : printf ("\nLinked List Reversed ");
+            reverse(&head);
             break;
         }
     }
 }
 
-void insert (int number) {
-    if (head.data == 0) {
-        head.data = number;
-        head.link = NULL;
-        last_node = &head;
-    } else {
-        struct Node *new_node;
-        new_node = (struct Node *) malloc (sizeof(struct Node));
-        new_node -> data = number;
-        new_node -> link = NULL;
-        last_node -> link = new_node;
-        last_node = new_node;
+int insert_front (struct Node **head, int item) {
+    struct Node *new = (struct Node *) malloc(sizeof(struct Node));
+    int status = new != NULL;
+
+    if (status) {
+        new->data = item;
+        new->link = *head;
+        *head = new;
     }
+
+    return status;
 }
 
-void print () {
-    struct Node *start;
-    start = &head;
-    do {
-        printf ("%d ", start->data);
-        start = start->link;
-    } while (start != NULL);
-    printf ("\n");
-    exit(0);
+void display (struct Node *head) {
+    while (head != NULL) {
+        printf ("%d -> ", head->data);
+        head = head->link;
+    }
+    puts("NULL");
 }
 
-int count (struct Node *start) {
-    if (start->link == NULL)
+int count (struct Node *head) {
+    if (head->link == NULL)
         return 1;
     else {
-        return (count(start->link) + 1);
+        return (count(head->link) + 1);
     }
     
 }
+void reverse (struct Node **head) {
+    struct Node *temp1 = NULL, *temp2;
 
-void find (int number) {
-    struct Node *start;
+    while ((*head) != NULL) {
+        temp2 = (*head)->link;
+        (*head)->link = temp1;
+        temp1 = (*head);
+        (*head) = temp2;
+    } 
+
+    *head = temp1;
+}
+
+int find (struct Node *head, int number) {
     int count = 0;
-    start = &head;
-    while (start != NULL) {
-        if (start->data == number) {
+    
+    while (head != NULL) {
+        if (head->data == number) {
             printf ("Element found at index: %d", count);
-            exit(0);
+            return 1;
         } else {
-            start = start->link;
+            head = head->link;
             count++;
         }
     }
     printf ("Element not found in the list!");
+    return -1;
 }
 
-void delete (int number) {
-    struct Node *start;
-    start = &head;
+void delete (struct Node **head, int number) {
+    struct Node *start = *head, *temp = *head;
     while (start != NULL) {
-        if ((start->link)->data == number) {
-            start->link = (start->link)->link;
-            print();
-            exit(0);
+        if (start->data == number) {
+            if (*head == start) {       //When first element is deleted
+                *head = start->link;
+            }
+            temp->link = start->link;
         } else {
-            start = start->link;
+            temp = start;
         }
+
+        start = start->link;
     }
+
 }
