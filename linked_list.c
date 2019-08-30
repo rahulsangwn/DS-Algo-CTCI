@@ -7,7 +7,8 @@ struct Node {
 };
 
 int count (struct Node *);
-void reverse (struct Node **);
+// void reverse (struct Node **);
+void reverse (struct Node **, struct Node *);
 int insert_front (struct Node **, int number);
 void display (struct Node *);
 int find (struct Node *, int number);
@@ -56,7 +57,7 @@ int main () {
             break;
 
             case 7 : printf ("\nLinked List Reversed ");
-            reverse(&head);
+            reverse(&head, NULL);
             break;
         }
     }
@@ -91,17 +92,29 @@ int count (struct Node *head) {
     }
     
 }
-void reverse (struct Node **head) {
-    struct Node *temp1 = NULL, *temp2;
+// void reverse (struct Node **head) {
+//     struct Node *temp1 = NULL, *temp2;
 
-    while ((*head) != NULL) {
-        temp2 = (*head)->link;
-        (*head)->link = temp1;
-        temp1 = (*head);
-        (*head) = temp2;
-    } 
+//     while ((*head) != NULL) {
+//         temp2 = (*head)->link;
+//         (*head)->link = temp1;
+//         temp1 = (*head);
+//         (*head) = temp2;
+//     } 
 
-    *head = temp1;
+//     *head = temp1;
+// }
+
+void reverse (struct Node **head, struct Node *prev) {
+    if ((*head)->link == NULL) {
+        (*head)->link = prev;
+    } else {
+        struct Node *temp;
+        temp = *head;
+        (*head) = (*head)->link;
+        reverse(head, temp);
+        temp->link = prev;
+    }
 }
 
 int find (struct Node *head, int number) {
