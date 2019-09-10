@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>   
 
 typedef struct DNode {
     struct DNode *prev;
@@ -19,6 +20,24 @@ void dinsert_front (doubly **head, int number) {
     *head = temp;
 }
 
+bool ddelete (doubly **head, int number) {
+    doubly *start = *head;
+    
+    if (start->data == number) {    //first element deletion
+        start->next->prev = NULL;
+        *head = (*head)->next;
+        start = *head;
+    } else {
+        while (start->data != number && start->next != NULL) {
+            start = start->next;
+        }
+        start->prev->next = start->next;
+        if (start->next != NULL) {   // for middle elements deletion
+            start->prev->next->prev = start->prev;
+        }
+    }
+    
+}
 void dreverse (doubly **head) {
     doubly *start, *temp;
     start = *head;
