@@ -1,11 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Node {
+typedef struct Node {
     int data;
     struct Node *link;
-};
-
+} singly;
+ 
 int count (struct Node *);
 // void reverse (struct Node **);
 void reverse (struct Node **);

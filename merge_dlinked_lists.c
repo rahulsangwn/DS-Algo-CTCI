@@ -32,7 +32,7 @@ void dmerge (doubly **head, doubly **head2) {
     *head = ptr->next;
 }
 
-int main() {
+int main() {                                        //program driver
     doubly *head = NULL, *head2 = NULL;
 
     dinsert_front(&head, 2);
