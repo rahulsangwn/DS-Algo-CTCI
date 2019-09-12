@@ -1,19 +1,22 @@
 #include <stdio.h>
 
-void quicksort (int *, int, int);
-int main () {
-    int i, arr[] = {45, 62, 91, 18, 88, 72, 11, 10, 29, 54};
-    
-    quicksort (arr, 0, 9);
-
-    for (i = 0; i < 10; i++) {
-        printf ("%d ", arr[i]);
-    }
-
-    return 0;
+void quicksort (int[], int, int);
+void sort (int arr[], int length) {
+    quicksort (arr, 0, length-1);
 }
+// int main () {
+//     int i, arr[] = {45, 62, 91, 18, 88, 72, 11, 10, 29, 54};
+    
+//     sort (arr, 10);
 
-void quicksort (int *arr, int start, int end) {
+//     for (i = 0; i < 10; i++) {
+//         printf ("%d ", arr[i]);
+//     }
+
+//     return 0;
+// }
+
+void quicksort (int arr[], int start, int end) {
     int num = start + 1, ptr = start + 1, temp;
     for (; num <= end; num++) {
         if (arr[start] >= arr[num]) {
