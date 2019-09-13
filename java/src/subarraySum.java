@@ -1,5 +1,7 @@
+// Not work with negative values
+
 public class subarraySum {
-    static int subarraySum(int[] arr, int length, int sum) {
+    static int findSubarraySum(int[] arr, int length, int sum) {
         int current_sum = arr[0], ptr = 0;
 
         for (int i=1; i<length; i++) {
@@ -22,8 +24,9 @@ public class subarraySum {
 
     public static void main (String[] args) {
         int[] arr = {15, 2, 4, 8, 9, 5, 10, 23};
+//        int[] arr = {-15, 2, 4, 8, -9, 5, 10, 23};  Not work
 
-        if (subarraySum(arr, arr.length, 26) == 0)
+        if (findSubarraySum(arr, arr.length, 26) == 0)
             System.out.println("No subarray Found");
     }
 }
