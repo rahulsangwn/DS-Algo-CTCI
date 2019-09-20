@@ -1,4 +1,4 @@
-// Not work with negative values
+// Not work with negative values -- time complexity O(n)
 
 public class subarraySum {
     static int findSubarraySum(int[] arr, int length, int sum) {
