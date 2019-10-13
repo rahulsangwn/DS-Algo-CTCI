@@ -4,30 +4,45 @@ public class MyHeap {
     public int BuildHeap(int[] array) {
         int length = array.length;
 
-        for(int i = length/2 - 1; i >= 0; i--) {
+        for(int i = parent(length); i >= 0; i--) {
             minHeapify(array, i);
         }
         return 0;
     }
 
+    private static int parent(int i) {
+        return i/2 - 1;
+    }
+
+    private static int leftChild(int i) {
+        return i*2 + 1;
+    }
+
+    private static int rightChild(int i) {
+        return i*2 + 2;
+    }
+
+    private static void swap(int array[], int i, int j) {
+        int temp;
+
+        temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+
     private static void minHeapify(int array[], int i) {
-        int length = array.length, left;
+        int length = array.length;
 
-        while ((left = i*2+1) <= length) {
-            int temp;
+        while (leftChild(i) <= length) {
 
-            if (left+1 <= length-1 && array[left+1] < array[i] && array[left+1] < array[left]) {
-                i = left+1;
+            if (rightChild(i) <= length-1 && array[rightChild(i)] < array[i] && array[rightChild(i)] < array[leftChild(i)]) {
+                i = rightChild(i);
 
-                temp = array[i/2-1];
-                array[i/2-1] = array[i];
-                array[i] = temp;
-            } else if(array[left] < array[i]) {
-                i = left;
+                swap(array, parent(i), i);
+            } else if(array[leftChild(i)] < array[i]) {
+                i = leftChild(i);
 
-                temp = array[i/2];
-                array[i/2] = array[i];
-                array[i] = temp;
+                swap(array,i/2, i);
             } else {
                 break;
             }
