@@ -4,6 +4,7 @@
 package mylib;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 
 public class MyHeap {
@@ -31,7 +32,17 @@ public class MyHeap {
 
         minHeapifyBottom(position);
 
-        return position;
+        return 0;
+    }
+
+    public int extractMin() {
+        int temp = arrayList.get(0);
+        Collections.swap(arrayList, 0, position);
+        arrayList.remove(position);
+        position--;
+        minHeapify(0);
+
+        return temp;
     }
 
     private static void minHeapifyBottom(int index) {
