@@ -1,20 +1,23 @@
+/*----TestHeap.java Program to run this----*/
+/*----Implemented heap abstract data types using ArrayList----*/
+
 package mylib;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class MyHeap {
-    private static int[] array;
+    private static ArrayList<Integer> arrayList;
     private static int position;
     private static int maxSize;
 
-    public MyHeap(int[] array) {
-        this.array = array;
-        maxSize  = array.length;
-        position = array.length;
+    public MyHeap(ArrayList<Integer> arrayList) {
+        this.arrayList = arrayList;
+        this.maxSize  = arrayList.size();
+        this.position = arrayList.size() - 1;
     }
 
     public int buildHeap() {
-        int position = array.length;
 
         for(int i = parent(position); i >= 0; i--) {
             minHeapify(i);
@@ -23,37 +26,28 @@ public class MyHeap {
     }
 
     public int insert(int item) {
-        if(position >= maxSize && allocateBigArray()) {
-            maxSize = array.length;
-        }
-        array[position] = item;
-//        swap(0, position);
         position++;
-        minHeapifyBottom(0);
-        System.out.println(Arrays.toString(array));
-        return 0;
+        arrayList.add(item);
+
+        minHeapifyBottom(position);
+
+        return position;
     }
 
     private static void minHeapifyBottom(int index) {
         while(parent(index) >= 0) {
-            if(array[index] < array[parent(index)]) {
-                swap(index, parent(index));
-                index = parent(index);
+            if(arrayList.get(index) < arrayList.get(parent(index))) {
+                Collections.swap(arrayList, index, parent(index));
             }
+            index = parent(index);
         }
     }
 
-    private boolean allocateBigArray() {
-        int[] bigAarray = new int[(array.length)*2];
-        System.arraycopy(array, 0, bigAarray, 0, array.length);
-
-        array = bigAarray;
-
-        return true;
-    }
-
     private static int parent(int i) {
-        return i/2 - 1;
+        if (i%2 == 0)
+            return i/2 - 1;
+        else
+            return i/2;
     }
 
     private static int leftChild(int i) {
@@ -64,26 +58,20 @@ public class MyHeap {
         return i*2 + 2;
     }
 
-    private static void swap(int i, int j) {
-        int temp;
-
-        temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
-
     private static void minHeapify(int i) {
 
         while (leftChild(i) <= position) {
 
-            if (rightChild(i) <= position-1 && array[rightChild(i)] < array[i] && array[rightChild(i)] < array[leftChild(i)]) {
+            if (rightChild(i) <= position &&
+                    arrayList.get(rightChild(i)) < arrayList.get(i) &&
+                    arrayList.get(rightChild(i)) < arrayList.get(leftChild(i))) {
                 i = rightChild(i);
 
-                swap(parent(i), i);
-            } else if(array[leftChild(i)] < array[i]) {
+                Collections.swap(arrayList, parent(i), i);
+            } else if(arrayList.get(leftChild(i)) < arrayList.get(i)) {
                 i = leftChild(i);
 
-                swap(i/2, i);
+                Collections.swap(arrayList, parent(i), i);
             } else {
                 break;
             }
