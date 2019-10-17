@@ -6,10 +6,10 @@ public class KthSmallestElement {
         int arr[] = {7, 10, 4, 3, 20, 15};
         int k = 3;
 
-        System.out.println(findKth(arr, k));
+//        System.out.println(findKth(arr, k));
     }
 
-    private static int findKth(int arr[], int k) {
-
-    }
+//    private static int findKth(int arr[], int k) {
+//
+//    }
 }
