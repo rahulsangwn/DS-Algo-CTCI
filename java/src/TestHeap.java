@@ -14,6 +14,7 @@ public class TestHeap {
 
         myHeap.buildHeap();
         myHeap.insert(55);
+        System.out.println("Minimum Element(removed): " + myHeap.extractMin());
 
         System.out.println("Heap Array: " + arrayList);
 
