@@ -2,3 +2,5 @@ a.out
 java/.idea/
 java/java.iml
 java/out/
+python/.idea
+python/venv
