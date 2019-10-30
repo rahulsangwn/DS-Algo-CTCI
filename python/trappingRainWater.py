@@ -1,3 +1,7 @@
+# Source: https://practice.geeksforgeeks.org/problems/trapping-rain-water/0
+# Brute force technique
+# Time Complexity: O(n)
+
 list = [1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1]
 
 
